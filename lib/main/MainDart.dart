@@ -27,6 +27,7 @@ class _MainDartState extends State<MainDart>
     initData();
     return MaterialApp(
       navigatorKey: navigatorKey,
+      debugShowCheckedModeBanner: false, //去除debug标签
       theme: ThemeData(
         accentColor: Colors.black,
         textSelectionColor: MyColors.colorWhite,
@@ -35,6 +36,7 @@ class _MainDartState extends State<MainDart>
       home: Scaffold(
         appBar: _initAppBar(),
         bottomNavigationBar: _initNavigationBar(),
+        drawer: _initDrawer(),
       ),
     );
   }
@@ -46,6 +48,7 @@ class _MainDartState extends State<MainDart>
         style: new TextStyle(
             color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold),
       ),
+      automaticallyImplyLeading: false, //去掉前面的icon
 
       //android 上的meun
       actions: <Widget>[
@@ -92,5 +95,31 @@ class _MainDartState extends State<MainDart>
           title: Text(mainTitle[3]),
           backgroundColor: Colors.black),
     ];
+  }
+
+  Drawer _initDrawer() {
+    return Drawer(
+        child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        UserAccountsDrawerHeader(
+          accountName: Text('wanandroid'),
+          accountEmail: Text('768712849@qq.com'),
+          onDetailsPressed: () {
+            //todo 跳转到我的界面
+          },
+          currentAccountPicture: GestureDetector(
+            child: Image.asset(
+              'assets/images/ic_launcher_round.png',
+              fit: BoxFit.fill,
+            ),
+            onTap: (){
+              //todo 跳转到我的界面
+            },
+          ),
+        ),
+
+      ],
+    ));
   }
 }
