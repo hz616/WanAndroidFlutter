@@ -1,5 +1,8 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:wan_android_flutter/res/MyColors.dart';
+import 'package:wan_android_flutter/utils/LogUtils.dart';
 
 class MainDart extends StatefulWidget {
   @override
@@ -8,6 +11,7 @@ class MainDart extends StatefulWidget {
 
 class _MainDartState extends State<MainDart>
     with SingleTickerProviderStateMixin {
+  static const String TAG = "MainDart";
   int positionIndex = 0;
   var mainTitle = ["首页", "发现", "其他", "我的"];
   var indexStack;
@@ -19,7 +23,26 @@ class _MainDartState extends State<MainDart>
   @override
   void initState() {
     super.initState();
+    LogUtils.d(TAG, "initState execute ");
     _initNavigationBarView();
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    LogUtils.d(TAG, "didChangeDependencies execute ");
+  }
+
+  @override
+  void deactivate() {
+    super.deactivate();
+    LogUtils.d(TAG, "deactivate execute ");
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    LogUtils.d(TAG, "dispose execute ");
   }
 
   @override
@@ -29,9 +52,9 @@ class _MainDartState extends State<MainDart>
       navigatorKey: navigatorKey,
       debugShowCheckedModeBanner: false, //去除debug标签
       theme: ThemeData(
-        accentColor: Colors.black,
+        accentColor: Colors.white,
         textSelectionColor: MyColors.colorWhite,
-        primaryColor: MyColors.colorPrimary,
+        primaryColor: Colors.blue,
       ),
       home: Scaffold(
         appBar: _initAppBar(),
@@ -48,14 +71,8 @@ class _MainDartState extends State<MainDart>
         style: new TextStyle(
             color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold),
       ),
+      centerTitle: true,
       automaticallyImplyLeading: false, //去掉前面的icon
-
-      //android 上的meun
-      actions: <Widget>[
-        IconButton(icon: Icon(Icons.account_balance), onPressed: () {}),
-        IconButton(icon: Icon(Icons.search), onPressed: () {}),
-        IconButton(icon: Icon(Icons.settings), onPressed: () {})
-      ],
     );
   }
 
@@ -113,12 +130,11 @@ class _MainDartState extends State<MainDart>
               'assets/images/ic_launcher_round.png',
               fit: BoxFit.fill,
             ),
-            onTap: (){
+            onTap: () {
               //todo 跳转到我的界面
             },
           ),
         ),
-
       ],
     ));
   }
