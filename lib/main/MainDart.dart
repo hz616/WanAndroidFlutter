@@ -1,8 +1,7 @@
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:wan_android_flutter/res/MyColors.dart';
-import 'package:wan_android_flutter/utils/LogUtils.dart';
+import 'package:wan_android_flutter/ui/pages/home/home_page.dart';
+import 'package:wan_android_flutter/utils/log_utils.dart';
 
 class MainDart extends StatefulWidget {
   @override
@@ -52,7 +51,7 @@ class _MainDartState extends State<MainDart>
       navigatorKey: navigatorKey,
       debugShowCheckedModeBanner: false, //去除debug标签
       theme: ThemeData(
-        accentColor: Colors.white,
+        accentColor: Colors.pinkAccent,
         textSelectionColor: MyColors.colorWhite,
         primaryColor: Colors.blue,
       ),
@@ -60,19 +59,23 @@ class _MainDartState extends State<MainDart>
         appBar: _initAppBar(),
         bottomNavigationBar: _initNavigationBar(),
         drawer: _initDrawer(),
+        body: indexStack,
       ),
     );
   }
 
-  AppBar _initAppBar() {
-    return AppBar(
-      title: Text(
-        mainTitle[positionIndex],
-        style: new TextStyle(
-            color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold),
+  Widget _initAppBar() {
+    return PreferredSize(
+      preferredSize: Size.fromHeight(40),
+      child: AppBar(
+        title: Text(
+          mainTitle[positionIndex],
+          style: new TextStyle(
+              color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold),
+        ),
+        centerTitle: true,
+        automaticallyImplyLeading: false, //去掉前面的icon
       ),
-      centerTitle: true,
-      automaticallyImplyLeading: false, //去掉前面的icon
     );
   }
 
@@ -91,7 +94,14 @@ class _MainDartState extends State<MainDart>
     );
   }
 
-  void initData() {}
+  void initData() {
+    indexStack = IndexedStack(
+      index: positionIndex,
+      children: <Widget>[
+        Homepage(),
+      ],
+    );
+  }
 
   void _initNavigationBarView() {
     navigationViews = <BottomNavigationBarItem>[
